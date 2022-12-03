@@ -1,0 +1,146 @@
+<?php
+
+    //disable all notice or warning messages
+    error_reporting(0);
+    $criteria = array("Vocal Performance", "Stage Persence", "Artistic Performance","Audience Reaction","Jugde Impression");
+
+    if(isset($_POST['btntotal'])){
+
+
+        $tmark = 0;
+        $result;
+
+        //retrieve all entered value
+        $name = $_POST['name'];
+        $class = $_POST['class'];
+        $dcom = $_POST['dcom'];
+        $jname = $_POST['njury'];
+        $mark = $_POST['mark'];
+
+        //call function calculate
+        $tmark = calculate($mark);
+    
+        if($tmark <= 100 && $tmark >= 80)
+            {
+                  $result = 'Gold';
+            }
+             else if($tmark <=79 && $tmark >=65)
+            {
+                  $result ='Silver';
+            }
+            else if($tmark <=64 && $tmark >=50)
+            {
+                   $result ='Bronze';
+            }
+            else if ($tmark <=50)
+            { 
+                   $result ='No awards';
+            }
+            else
+            {
+                   $result ='Invalid marks. Please recheck again';
+            }
+    }	
+    //function
+    function calculate($mark)
+    {   
+        $index= 0;
+        $tmark = 0;
+        foreach ($mark as $m)
+        {
+            $tmark += $m;
+            $index++;
+        }
+        return $tmark;
+    }
+    
+    
+
+?>
+
+<html>
+<head><title>Mark Competition</title>
+</head>
+<body img src="https://bit.ly/3rfr4Pj">
+    <center><table>
+        <form method="post" name= "frmmark" action="" >
+        <img src="https://bit.ly/3rfr4Pj">
+            <caption><b><h1>SINGING COMPETITION MARK SK Batu 7.<h1></b></caption>
+            <tr>
+                <td>Name : </td>
+                <td><input type="text" name="name" value="" required></td>
+            </tr>
+            <tr>
+                <td>Class : </td>
+                <td><select id="class" name="class" required>
+                <option disable selected>---Chooce Class--</option>
+                <option value="6 AMANAH">6 AMANAH
+                <option value="6 BESTARI">6 BESTARI
+                <option value="6 CEMERLANG">6 CEMERLANG
+                <option value="6 DEDIKASI">6 DEDIKASI
+                <option value="6 EHSAN">6 EHSAN
+                <option value="6 FATONAH">6 FATONAH
+                <option value="6 GIGIH">6 GIGIH
+                <option value="6 HARMONI">6 HARMONI
+                </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Date competition :</td>
+                <td><input type="date" name="dcom" id="dc" required></td>
+            </tr>
+            <tr>
+                <td>Jury Name : </td>
+                <td><input type="text" name="njury" value="" required></td>
+            </tr>
+            <tr></tr>
+            <tr></tr>
+            <tr></tr>
+            <tr></tr>
+
+            <!-- criteria-->
+                <?php
+                $index = 0;
+                foreach($criteria as $z => $value){
+                ?>
+
+                <tr>
+                    <td><?php echo $criteria [$z];?></td>
+                    <td> <input type="number" name="mark[<?php echo $index ?>]" value="" min="1" max="20" style="width: 10em" required>
+	                <?php echo '/20'; $index++?></td>      
+                </tr>
+
+                <?php }; ?>	
+            <tr></tr>
+            <tr></tr>
+            <tr></tr>
+            <tr></tr>
+
+            <tr>
+	            <td> </td>
+	            <td> <input type="submit"  name="btntotal" value="TOTAL"> <input type="reset"  name="btnReset" value="Reset"></td>
+            </tr>
+            <tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr><tr></tr>       
+            <tr>
+                <td><b>Name :  <?php echo $name?>( <?php echo $class?>)</b></td>
+            </tr>
+            <tr>
+                <td><b>Jury Name :  <?php echo $jname?></b></td>
+            </tr>
+            <tr>
+                <td><b>Total mark :  <?php echo $tmark?>/100</b></td>
+            </tr>
+            <tr>
+                <td><b>Award :  <?php echo $result?></b></td>
+                <td>
+                    <?php
+
+                    ?>
+                </td>
+
+            </tr>
+
+        </form>
+   </center></table>
+</body>
+</html>
